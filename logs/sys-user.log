@@ -1,0 +1,7 @@
+15:13:59.714 [schedule-pool-7] INFO  sys-user - [run,55] - [127.0.0.1]内网IP[admin][Success][登录成功]
+15:28:54.568 [main] INFO  sys-user - [shutdownAsyncManager,31] - ====关闭后台任务任务线程池====
+15:29:30.116 [main] INFO  sys-user - [shutdownAsyncManager,31] - ====关闭后台任务任务线程池====
+18:14:25.590 [schedule-pool-19] INFO  sys-user - [run,55] - [127.0.0.1]内网IP[admin][Logout][退出成功]
+18:14:37.545 [schedule-pool-10] INFO  sys-user - [run,55] - [127.0.0.1]内网IP[hxx][Success][登录成功]
+19:00:55.022 [schedule-pool-6] INFO  sys-user - [run,55] - [127.0.0.1]内网IP[hxx][Success][登录成功]
+20:00:39.787 [schedule-pool-2] INFO  sys-user - [run,55] - [127.0.0.1]内网IP[hxx][Success][登录成功]

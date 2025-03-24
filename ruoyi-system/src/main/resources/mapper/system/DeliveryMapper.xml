@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.DeliveryMapper">
+    
+    <resultMap type="Delivery" id="DeliveryResult">
+        <result property="deliveryId"    column="delivery_id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="deliveryStatus"    column="delivery_status"    />
+        <result property="trackingNumber"    column="tracking_number"    />
+        <result property="deliveryTime"    column="delivery_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDeliveryVo">
+        select delivery_id, order_id, delivery_status, tracking_number, delivery_time, update_time from delivery
+    </sql>
+
+    <select id="selectDeliveryList" parameterType="Delivery" resultMap="DeliveryResult">
+        <include refid="selectDeliveryVo"/>
+        <where>  
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="deliveryStatus != null  and deliveryStatus != ''"> and delivery_status = #{deliveryStatus}</if>
+            <if test="trackingNumber != null  and trackingNumber != ''"> and tracking_number = #{trackingNumber}</if>
+            <if test="deliveryTime != null "> and delivery_time = #{deliveryTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectDeliveryByDeliveryId" parameterType="Long" resultMap="DeliveryResult">
+        <include refid="selectDeliveryVo"/>
+        where delivery_id = #{deliveryId}
+    </select>
+
+    <insert id="insertDelivery" parameterType="Delivery" useGeneratedKeys="true" keyProperty="deliveryId">
+        insert into delivery
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="deliveryStatus != null and deliveryStatus != ''">delivery_status,</if>
+            <if test="trackingNumber != null">tracking_number,</if>
+            <if test="deliveryTime != null">delivery_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="deliveryStatus != null and deliveryStatus != ''">#{deliveryStatus},</if>
+            <if test="trackingNumber != null">#{trackingNumber},</if>
+            <if test="deliveryTime != null">#{deliveryTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDelivery" parameterType="Delivery">
+        update delivery
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="deliveryStatus != null and deliveryStatus != ''">delivery_status = #{deliveryStatus},</if>
+            <if test="trackingNumber != null">tracking_number = #{trackingNumber},</if>
+            <if test="deliveryTime != null">delivery_time = #{deliveryTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where delivery_id = #{deliveryId}
+    </update>
+
+    <delete id="deleteDeliveryByDeliveryId" parameterType="Long">
+        delete from delivery where delivery_id = #{deliveryId}
+    </delete>
+
+    <delete id="deleteDeliveryByDeliveryIds" parameterType="String">
+        delete from delivery where delivery_id in 
+        <foreach item="deliveryId" collection="array" open="(" separator="," close=")">
+            #{deliveryId}
+        </foreach>
+    </delete>
+</mapper>
